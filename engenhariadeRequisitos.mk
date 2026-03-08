@@ -89,33 +89,118 @@ A tabela de rastreabilidade relaciona **atores do sistema** com **funcionalidade
 
 # 3. Regras de Negócio (RN)
 
-### RN01 – Validade da Receita Digital
-Receitas médicas emitidas pelo sistema possuem validade de **30 dias**, salvo medicamentos controlados que seguem regulamentação específica.
+As regras de negócio definem restrições e políticas que controlam o funcionamento do sistema de telemedicina.
 
 ---
 
-### RN02 – Tempo Máximo de Atraso
-O paciente pode entrar na consulta com até **15 minutos de atraso**. Após esse período, o atendimento poderá ser cancelado automaticamente.
+## RN01 – Validade da Receita Digital
+
+Toda receita médica emitida pelo sistema deve possuir uma validade máxima de **30 dias** a partir da data de emissão.
+
+Caso o medicamento seja classificado como **controlado**, a validade deverá seguir as normas da legislação sanitária vigente.
 
 ---
 
-### RN03 – Segurança e Criptografia
-Todos os dados de comunicação entre médico e paciente devem utilizar **criptografia ponta a ponta (E2EE)** para garantir confidencialidade.
+## RN02 – Tempo Máximo de Atraso para Consulta
+
+O paciente pode acessar a sala de teleconsulta com um atraso máximo de **15 minutos** após o horário agendado.
+
+Após esse período:
+
+- a consulta poderá ser marcada como **não realizada**
+- o médico poderá **encerrar a sessão**
+- o paciente deverá **realizar um novo agendamento**
 
 ---
 
-### RN04 – Acesso ao Prontuário
-Somente **profissionais de saúde autorizados** e o próprio paciente podem acessar os dados do prontuário eletrônico.
+## RN03 – Registro Obrigatório de Atendimento
 
----
+Todo atendimento realizado deve ser automaticamente registrado no **prontuário eletrônico do paciente**, contendo:
 
-### RN05 – Registro Obrigatório de Atendimento
-Todo atendimento realizado deve gerar automaticamente um **registro no prontuário eletrônico**, incluindo:
-- data
-- horário
-- médico responsável
+- data do atendimento
+- profissional responsável
+- sintomas relatados
 - diagnóstico
-- observações clínicas
+- prescrições médicas (quando aplicável)
+
+Esse registro não pode ser removido, apenas **atualizado por profissionais autorizados**.
+
+---
+
+## RN04 – Controle de Acesso ao Prontuário
+
+O acesso ao prontuário do paciente deve obedecer às seguintes regras:
+
+- Pacientes podem visualizar **apenas seus próprios dados**
+- Médicos podem acessar prontuários de pacientes **sob sua responsabilidade**
+- Enfermeiros podem visualizar informações clínicas **necessárias para assistência**
+- Todos os acessos devem ser **registrados para auditoria**
+
+---
+
+## RN05 – Segurança da Comunicação
+
+Toda comunicação realizada durante a consulta online deve utilizar **criptografia segura**, garantindo:
+
+- confidencialidade
+- integridade das informações
+- proteção contra acesso não autorizado
+
+A comunicação deve ocorrer por meio de **conexões seguras (HTTPS e criptografia de mídia)**.
+
+---
+
+## RN06 – Autenticação Obrigatória
+
+Todos os usuários do sistema (pacientes, médicos e enfermeiros) devem realizar **autenticação antes de acessar o sistema**, utilizando:
+
+- e-mail e senha
+ou
+- sistema de autenticação seguro (ex: OAuth ou autenticação institucional)
+
+---
+
+## RN07 – Agendamento de Consultas
+
+Consultas de telemedicina devem ser previamente agendadas pelo paciente com base na **disponibilidade da agenda do médico**.
+
+O sistema deve impedir:
+
+- agendamentos em horários já ocupados
+- sobreposição de consultas
+
+---
+
+## RN08 – Registro de Falhas de Atendimento
+
+Caso ocorra falha de conexão durante a consulta:
+
+- o sistema deve tentar **reconexão automática**
+- caso a reconexão falhe, o atendimento deve ser marcado como **interrompido**
+- deve ser disponibilizada opção de **reagendamento**
+
+---
+
+## RN09 – Histórico de Atendimentos
+
+O sistema deve manter o histórico completo de consultas do paciente, incluindo:
+
+- consultas realizadas
+- consultas canceladas
+- consultas não realizadas
+
+Essas informações devem permanecer disponíveis para **consulta futura no prontuário**.
+
+---
+
+## RN10 – Auditoria de Ações
+
+Todas as ações relevantes realizadas no sistema devem ser registradas em um **log de auditoria**, incluindo:
+
+- acesso a prontuários
+- emissão de receitas
+- alterações em dados médicos
+- realização de atendimentos
 
 ---
 
